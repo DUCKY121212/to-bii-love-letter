@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ถึงบี๋ของเค้า 💌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--night:#0d0a22;--plum:#2a1850;--rose:#ff9db8;--moon:#fff1c9;--lav:#cdb4ff}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:'Mali','Sarabun','Noto Sans Thai',sans-serif;color:var(--moon);
+  background:radial-gradient(ellipse at 50% 45%,var(--plum) 0%,var(--night) 70%);
+  overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none;
+}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+#st1{animation:tw 3.2s ease-in-out infinite alternate}
+#st2{animation:tw 4.7s ease-in-out infinite alternate-reverse}
+@keyframes tw{from{opacity:.25}to{opacity:1}}
+#cv{z-index:3}
+
+/* กาแล็กซี่ด้านหลัง */
+.gal{position:fixed;left:50%;top:50%;width:150vmax;height:150vmax;margin:-75vmax 0 0 -75vmax;z-index:1;
+  background:conic-gradient(from 0deg,rgba(205,180,255,.20),transparent 22%,rgba(255,157,184,.18) 45%,transparent 68%,rgba(159,232,255,.16) 85%,rgba(205,180,255,.20));
+  -webkit-mask-image:radial-gradient(circle,#000 0%,transparent 55%);mask-image:radial-gradient(circle,#000 0%,transparent 55%);
+  animation:spin 160s linear infinite;will-change:transform;pointer-events:none}
+.core{position:fixed;left:50%;top:50%;width:46vmin;height:46vmin;margin:-23vmin 0 0 -23vmin;z-index:1;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,241,201,.20),rgba(255,157,184,.08) 45%,transparent 70%);pointer-events:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.shoot{position:fixed;top:12%;left:70%;width:110px;height:2px;z-index:1;opacity:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent,#fff);border-radius:2px;transform:rotate(-30deg);animation:shoot 9s linear 3s infinite}
+@keyframes shoot{0%{opacity:0;transform:translate(0,0) rotate(-30deg)}2%{opacity:1}9%{opacity:0;transform:translate(-340px,196px) rotate(-30deg)}100%{opacity:0}}
+
+/* ซองจดหมาย */
+#intro{position:fixed;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;cursor:pointer;
+  transition:opacity .25s ease,transform .25s ease}
+#intro.burst{opacity:0;transform:scale(1.25);pointer-events:none}
+.env{position:relative;width:min(70vw,300px);aspect-ratio:3/2;animation:bob 3.4s ease-in-out infinite}
+.env .bd{position:absolute;inset:0;background:linear-gradient(155deg,#ffd9e3,#ff9db8);border-radius:10px;box-shadow:0 0 60px rgba(255,157,184,.45)}
+.env .fl{position:absolute;left:0;right:0;top:0;height:62%;background:#ff82a3;clip-path:polygon(0 0,100% 0,50% 100%);border-radius:10px 10px 0 0}
+.env .sl{position:absolute;left:50%;top:48%;z-index:2;font-size:2.3rem;transform:translate(-50%,-50%);animation:beat 1.3s ease-in-out infinite;filter:drop-shadow(0 4px 8px rgba(0,0,0,.35))}
+.tip{font-size:1.1rem;animation:fade 2.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(-1.5deg)}}
+@keyframes beat{50%{transform:translate(-50%,-50%) scale(1.25)}}
+@keyframes fade{50%{opacity:.4}}
+#flash{position:fixed;left:50%;top:50%;width:40vmin;height:40vmin;margin:-20vmin 0 0 -20vmin;z-index:2;border-radius:50%;opacity:0;pointer-events:none;
+  background:radial-gradient(circle,#fff,rgba(255,157,184,.7) 35%,transparent 70%)}
+#flash.go{animation:fl .9s ease-out}
+@keyframes fl{0%{opacity:.95;transform:scale(.2)}100%{opacity:0;transform:scale(3)}}
+
+button{font:inherit;font-size:1rem;color:var(--moon);background:rgba(255,241,201,.10);border:1px solid rgba(255,241,201,.35);padding:10px 20px;border-radius:999px;cursor:pointer}
+button:active{background:rgba(255,241,201,.25)}
+button:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
+
+
+#letter{position:fixed;z-index:5;left:50%;transform:translateX(-50%);width:min(calc(100% - 28px),540px);
+  top:33vh;bottom:max(14px,env(safe-area-inset-bottom));overflow-y:auto;padding:22px 22px 28px;border-radius:22px;
+  background:linear-gradient(180deg,rgba(13,10,34,.62),rgba(13,10,34,.72));border:1px solid rgba(255,241,201,.18);
+  opacity:0;pointer-events:none;transition:opacity 1.2s ease;-webkit-overflow-scrolling:touch;
+  font-size:1.06rem;line-height:1.95;text-shadow:0 0 14px rgba(255,157,184,.35)}
+#letter.show{opacity:1;pointer-events:auto}
+#letter p{margin-bottom:1em;opacity:0;transform:translateY(10px)}
+#letter.show p{animation:rise 1s ease forwards}
+#letter p.last{font-size:1.3rem;font-weight:700;color:var(--rose);text-align:center;margin-top:1.2em}
+@keyframes rise{to{opacity:1;transform:none}}
+#again{display:block;margin:6px auto 0;opacity:0}
+#again.on{opacity:1;transition:opacity 1s}
+</style>
+</head>
+<body>
+<canvas id="st1"></canvas><canvas id="st2"></canvas>
+<div class="gal"></div><div class="core"></div><i class="shoot"></i>
+<canvas id="cv"></canvas>
+
+<div id="intro" role="button" tabindex="0" aria-label="เปิดจดหมาย">
+  <div class="env" id="env"><div class="bd"></div><div class="fl"></div><div class="sl">💗</div></div>
+  <div class="tip">มีจดหมายถึงบี๋ แตะเพื่อเปิดนะคะ</div>
+</div>
+<div id="flash"></div>
+<div id="letter">
+  <p>เค้าคิดถึงเธอมากเลย เค้าเสียดายมากๆเลยที่ไม่ได้เจอเธอ เค้ารู้สึกผิดจริงๆ เพราะฉะนั้นบี๋อย่าทิ้งเค้าไปเลยนะคะ</p>
+  <p>เค้าอยากกอดมากๆ รอเวลาผ่านมาให้เราเจอกันอีกครั้งนะคะ บี๋อย่าทิ้งเค้าเลยนะ เค้ารักเธอจริงๆ อยากกอดเธอมากๆๆๆ</p>
+  <p>เค้าอยากขอโทษที่เค้างี่เง่าหลายๆเรื่อง และก็อยากขอบคุณที่ยังทนเค้าอยู่ได้ถึงตอนนี้ เค้ารักบี๋นะคะ</p>
+  <p>บี๋ก็คงหลับปุ๋ยยแล้วตอนนี้ เค้าอยากขออวยพรให้เธอหลับฝันดีนะคะ พักผ่อนเย้ออเย้อออ</p>
+  <p>เค้ารักบี๋มากๆเลยนะ จุ๊บบ 😘</p>
+  <p class="last">ฝันดีนะคะคนสวยของเค้า 🌙</p>
+  <button id="again">ดูอีกครั้ง ✨</button>
+</div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  // ข้อความที่จะรวมตัวเป็นตัวอักษร (แก้ไขได้ แต่ละชุดไม่ควรเกิน 4 บรรทัด)
+  var heading=["บี๋คะ","เค้ารักเธอนะคะ"]; // หัวข้อที่อนุภาครวมตัวเป็นตัวอักษร
+
+  var dpr=Math.min(window.devicePixelRatio||1,2);
+  var cv=$('cv'),ctx=cv.getContext('2d');
+  var W,H,cx,cy,R;
+  var N=innerWidth<640?2200:3200;
+  var x=new Float32Array(N),y=new Float32Array(N),vx=new Float32Array(N),vy=new Float32Array(N);
+  var tx=new Float32Array(N),ty=new Float32Array(N),oa=new Float32Array(N),orr=new Float32Array(N),sz=new Float32Array(N);
+  var md=new Uint8Array(N),perm=new Uint32Array(N);
+  var TILT=-.35,CT=Math.cos(TILT),ST=Math.sin(TILT);
+  var groups=[[.35,'#fff1c9'],[.50,'#ffffff'],[.70,'#ff9db8'],[.90,'#cdb4ff'],[1,'#9fe8ff']];
+  var gEnd=groups.map(function(g){return Math.floor(g[0]*N)});
+  var FF='"Mali","Sarabun","Noto Sans Thai",sans-serif';
+  var started=false,px=-1e4,py=-1e4,userScroll=false;
+
+  // ดาวพื้นหลัง (วาดครั้งเดียว ใช้ CSS ทำให้กะพริบ จึงไม่หน่วง)
+  function drawStars(){
+    ['st1','st2'].forEach(function(id){
+      var c=$(id),g=c.getContext('2d');c.width=W*dpr;c.height=H*dpr;g.setTransform(dpr,0,0,dpr,0,0);
+      for(var i=0;i<60;i++){
+        g.globalAlpha=.4+Math.random()*.6;g.fillStyle=Math.random()<.2?'#cdb4ff':'#fff1c9';
+        g.beginPath();g.arc(Math.random()*W,Math.random()*H,Math.random()*1.3+.3,0,6.3);g.fill();
+      }
+    });
+  }
+  function resize(){
+    W=innerWidth;H=innerHeight;cx=W/2;cy=H/2;R=Math.max(W,H)*.5;
+    cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);drawStars();
+  }
+  resize();
+
+  for(var i=0;i<N;i++){
+    perm[i]=i;
+    orr[i]=Math.pow(Math.random(),.75);
+    oa[i]=(i%2)*Math.PI+orr[i]*5+(Math.random()-.5)*(1.2-orr[i]*.5);
+    sz[i]=1.1+Math.random()*.7;
+    var r=orr[i]*R,ex=r*Math.cos(oa[i]),ey=r*Math.sin(oa[i])*.5;
+    x[i]=cx+ex*CT-ey*ST;y[i]=cy+ex*ST+ey*CT;
+  }
+  for(var a=N-1;a>0;a--){var b=Math.random()*(a+1)|0,t=perm[a];perm[a]=perm[b];perm[b]=t}
+
+  // สุ่มจุดจากตัวอักษร
+  var oc=document.createElement('canvas'),octx=oc.getContext('2d',{willReadFrequently:true});
+  function textPts(lines,yc,maxH){
+    octx.font='700 100px '+FF;var mw=1;
+    lines.forEach(function(l){mw=Math.max(mw,octx.measureText(l).width)});
+    var size=Math.max(18,Math.min(W*.86/mw*100,76,maxH/(lines.length*1.5)));
+    var lh=size*1.5,bw=Math.ceil(mw*size/100+24),bh=Math.ceil(lines.length*lh+24);
+    oc.width=bw;oc.height=bh;
+    octx.font='700 '+size+'px '+FF;octx.textAlign='center';octx.textBaseline='middle';octx.fillStyle='#fff';
+    lines.forEach(function(l,k){octx.fillText(l,bw/2,12+lh*(k+.5))});
+    var d=octx.getImageData(0,0,bw,bh).data,step=2,c;
+    for(;step<=8;step++){
+      c=0;
+      for(var yy=0;yy<bh;yy+=step)for(var xx=0;xx<bw;xx+=step)if(d[(yy*bw+xx)*4+3]>110)c++;
+      if(c<=N*.8)break;
+    }
+    var out=new Float32Array(c*2),n=0,ox=cx-bw/2,oy=yc-bh/2;
+    for(var y2=0;y2<bh;y2+=step)for(var x2=0;x2<bw;x2+=step)if(d[(y2*bw+x2)*4+3]>110){
+      out[n++]=ox+x2+(Math.random()-.5)*step*.7;out[n++]=oy+y2+(Math.random()-.5)*step*.7;
+    }
+    return out;
+  }
+  function setHeading(kick){
+    var P=textPts(heading,H*.17,H*.24),cnt=P.length/2|0;
+    for(var a=cnt-1;a>0;a--){
+      var b=Math.random()*(a+1)|0,t0=P[2*a],t1=P[2*a+1];
+      P[2*a]=P[2*b];P[2*a+1]=P[2*b+1];P[2*b]=t0;P[2*b+1]=t1;
+    }
+    var M=Math.min(cnt,N);
+    for(var k=0;k<N;k++){
+      var j=perm[k];
+      if(k<M){
+        tx[j]=P[2*k];ty[j]=P[2*k+1];md[j]=1;sz[j]=1.5+Math.random()*.9;
+        if(kick){vx[j]+=(Math.random()-.5)*kick;vy[j]+=(Math.random()-.5)*kick}
+      }else if(md[j]!==0){md[j]=0;sz[j]=1.1+Math.random()*.7}
+    }
+  }
+
+  // ข้อความเรียงลงมา ค่อยๆ โผล่ทีละย่อหน้าเอง ไม่ต้องกด
+  function showLetter(){
+    var L=$('letter'),ps=L.querySelectorAll('p');
+    L.addEventListener('touchstart',function(){userScroll=true},{passive:true});
+    L.addEventListener('wheel',function(){userScroll=true},{passive:true});
+    ps.forEach(function(p,i){
+      p.style.animationDelay=(.4+i*1.5)+'s';
+      setTimeout(function(){if(!userScroll)L.scrollTo({top:L.scrollHeight,behavior:'smooth'})},(.4+i*1.5)*1000+500);
+    });
+    L.classList.add('show');
+    setTimeout(function(){
+      $('again').classList.add('on');
+      if(!userScroll)L.scrollTo({top:L.scrollHeight,behavior:'smooth'});
+    },(.4+ps.length*1.5)*1000+300);
+  }
+
+  function openEnv(){
+    if(started)return;started=true;
+    var r=$('env').getBoundingClientRect(),K=Math.min(N*.5|0,1600);
+    for(var k=0;k<K;k++){
+      var j=perm[k];
+      x[j]=r.left+Math.random()*r.width;y[j]=r.top+Math.random()*r.height;
+      var ang=Math.atan2(y[j]-cy,x[j]-cx)+(Math.random()-.5)*1.2,sp=3+Math.random()*9;
+      vx[j]=Math.cos(ang)*sp;vy[j]=Math.sin(ang)*sp;md[j]=2;sz[j]=1.6+Math.random();
+    }
+    $('intro').classList.add('burst');$('flash').classList.add('go');
+    setTimeout(function(){setHeading(2);setTimeout(showLetter,2200)},950);
+  }
+  $('intro').addEventListener('click',openEnv);
+  $('intro').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')openEnv()});
+
+  $('again').addEventListener('click',function(){location.reload()});
+
+  // นิ้ว/เมาส์ผลักอนุภาคเบาๆ
+  addEventListener('pointermove',function(e){px=e.clientX;py=e.clientY});
+  addEventListener('pointerdown',function(e){px=e.clientX;py=e.clientY});
+  addEventListener('pointerup',function(e){if(e.pointerType!=='mouse'){px=-1e4;py=-1e4}});
+  addEventListener('pointercancel',function(){px=-1e4;py=-1e4});
+
+  var rt;addEventListener('resize',function(){
+    clearTimeout(rt);rt=setTimeout(function(){resize();if(started)setHeading(0)},200);
+  });
+
+  // วนลูปหลัก (วาดสี่เหลี่ยมเล็กๆ จัดกลุ่มตามสี จึงเบามาก)
+  function frame(ms){
+    var t=ms/1000,ang=t*.07;
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<N;i++){
+      var m=md[i],xi=x[i],yi=y[i];
+      if(m===1){
+        var ax=tx[i],ay=ty[i];
+        ax+=Math.sin(t*2+i)*.5;ay+=Math.cos(t*2.3+i*1.3)*.5;
+        vx[i]=(vx[i]+(ax-xi)*.07)*.84;vy[i]=(vy[i]+(ay-yi)*.07)*.84;
+        var dx=xi-px,dy=yi-py;
+        if(dx<70&&dx>-70&&dy<70&&dy>-70){
+          var d2=dx*dx+dy*dy;
+          if(d2<4900&&d2>1){var f=(1-d2/4900)*2.4/Math.sqrt(d2);vx[i]+=dx*f;vy[i]+=dy*f}
+        }
+      }else if(m===0){
+        var a2=oa[i]+ang,r=orr[i]*R,ex=r*Math.cos(a2),ey=r*Math.sin(a2)*.5;
+        vx[i]=(vx[i]+(cx+ex*CT-ey*ST-xi)*.012)*.92;
+        vy[i]=(vy[i]+(cy+ex*ST+ey*CT-yi)*.012)*.92;
+      }else{
+        vx[i]=(vx[i]-(yi-cy)*.0004)*.965;vy[i]=(vy[i]+(xi-cx)*.0004)*.965;
+      }
+      x[i]=xi+vx[i];y[i]=yi+vy[i];
+    }
+    ctx.globalCompositeOperation='lighter';ctx.globalAlpha=.92;
+    var s=0;
+    for(var g=0;g<groups.length;g++){
+      ctx.fillStyle=groups[g][1];
+      for(var q=s;q<gEnd[g];q++)ctx.fillRect(x[q],y[q],sz[q],sz[q]);
+      s=gEnd[g];
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // โหลดฟอนต์ไว้ก่อนเพื่อให้ตัวอักษรไทยสวย
+  if(document.fonts&&document.fonts.load)document.fonts.load('700 40px Mali','บี๋คะเ').catch(function(){});
+})();
+</script>
+</body>
+</html>
